@@ -1,0 +1,17 @@
+.favorites {
+  margin-top: 50px;
+    &__top{
+        display: flex;
+        align-items: center;
+        
+    }
+  &__title {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+    margin-left: 21px;
+  }
+}
