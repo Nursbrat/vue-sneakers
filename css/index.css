@@ -122,6 +122,111 @@ span {
 .cotalog {
   margin-top: 40px;
 }
+.cotalog .box {
+  margin-top: 40px;
+  width: 210px;
+  background-color: #ffffff;
+  border: 1px solid #f3f3f3;
+  border-radius: 40px;
+  padding: 20px 30px 34px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.cotalog .box .header {
+  display: flex;
+  justify-content: space-between;
+}
+.cotalog .box .img {
+  position: relative;
+  width: 150px;
+  height: 91px;
+  background: #d9d9d9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.cotalog .box .name {
+  width: 50px !important;
+}
+.cotalog .box .name,
+.cotalog .box .about,
+.cotalog .box .line,
+.cotalog .box .btn {
+  position: relative;
+  display: block;
+  background: #d9d9d9;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 100px;
+  height: 20px;
+  margin-top: 5px;
+}
+.cotalog .box .line {
+  width: 150px;
+}
+.cotalog .box .btn {
+  height: 30px;
+  width: 100px;
+  border-radius: 6px;
+}
+.cotalog .box .btn-2 {
+  height: 35px;
+  width: 50px;
+  border-radius: 6px;
+  padding-bottom: 15px;
+}
+.cotalog .box .line:last-child {
+  width: 60%;
+}
+.cotalog .box .footer,
+.cotalog .box .article {
+  margin-top: 20px;
+}
+.cotalog .box .footer {
+  display: flex;
+  gap: 25px;
+}
+.cotalog .box .name::after,
+.cotalog .box .img::after,
+.cotalog .box .line::after,
+.cotalog .box .about::after,
+.cotalog .box .btn:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, #d9d9d9 0%, #acaeb4 20%, #d9d9d9 40%, #d9d9d9 100%);
+  background-size: 450px 400px;
+  background-repeat: no-repeat;
+  -webkit-animation: shimmer 1.4s linear infinite;
+          animation: shimmer 1.4s linear infinite;
+}
+.cotalog .box .name::after,
+.cotalog .box .about::after {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.cotalog .box .btn-2::after {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -450px 0px;
+  }
+  100% {
+    background-position: 450px 0px;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0px;
+  }
+  100% {
+    background-position: 450px 0px;
+  }
+}
 .cotalog__content {
   display: flex;
   justify-content: center;
@@ -239,7 +344,7 @@ span {
 .overlay__within {
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
-  width: 66%;
+  width: 56%;
   height: 110%;
   top: 0;
   z-index: 1;

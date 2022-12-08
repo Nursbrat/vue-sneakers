@@ -1,12 +1,20 @@
 import { cart, filterCart } from "./index.js";
 const drawerContent = document.querySelector(".drawer__content");
 const drawerBottom = document.querySelector(".drawer__bottom");
-const totalPrice=drawerBottom.querySelector('.totalPrice')
-const tax=drawerBottom.querySelector('.tax')
+const totalPrice = drawerBottom.querySelector(".totalPrice");
+const tax = drawerBottom.querySelector(".tax");
 const priceHeader = document.querySelector(".priceHeader");
+export const cart = [];
+export const deleteCartItem = async (id) => {
+  await fetch("http://localhost:3000/cart/"+id,{
+    method:'DELETE'
+  });
+};
 
-
-const renderCartItems = () => {
+ export const renderCartItems =  async () => {
+const res= await fetch("http://localhost:3000/cart")
+const data=await res.json()
+data.forEach(element => cart.push(element));
   drawerContent.innerHTML = "";
   if (cart.length <= 0) {
     drawerContent.innerHTML = `
@@ -37,10 +45,8 @@ const renderCartItems = () => {
     const overlay = document.querySelector(".overlay");
     const overlayWithin = document.querySelector(".overlay__within");
 
-     
     closeOverlay.addEventListener("click", () => {
       overlay.classList.remove("active");
-      //document.body.style.overflow = "visible";
     });
     overlayWithin.addEventListener("click", () => {
       overlay.classList.remove("active");
@@ -68,20 +74,28 @@ const renderCartItems = () => {
   `;
     });
     totalPrice.innerText = `${cart.reduce((a, b) => a + b.price, 0)}руб. `;
-    priceHeader.innerText = `${cart.reduce((a, b) => a + b.price, 0)}руб. `;
-    tax.innerText = `${Math.round(cart.reduce((a, b) => a + b.price * 0.05, 0))}руб. `;
+    if (priceHeader.value >= 0) {
+      0;
+    } else {
+      priceHeader.innerText = `${cart.reduce((a, b) => a + b.price, 0)}руб. `;
+    }
+
+    tax.innerText = `${Math.round(
+      cart.reduce((a, b) => a + b.price * 0.05, 0)
+    )}руб. `;
 
     drawerBottom.classList.remove("active");
   }
 
   const deleteCartBtn = document.querySelectorAll(".cart__delete");
+
   deleteCartBtn.forEach((cartDelete) => {
     cartDelete.addEventListener("click", () => {
       const itemId = cartDelete.parentElement.dataset.id;
-      filterCart(itemId);
+      deleteCartItem()
       renderCartItems();
+      const cardItems = document.querySelectorAll(".card__items");
+      cardItems[itemId].querySelector(".card__box").classList.add("active");
     });
   });
-
 };
-export default renderCartItems;

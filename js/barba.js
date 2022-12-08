@@ -6,6 +6,12 @@ const pageOut = (container) => {
     duration: 1,
   });
 };
+const pageIn = (container) => {
+  return tl.from (container, {
+    x: -1500,
+    duration: 1,
+  });
+};
 
 barba.init({
   transitions: [
@@ -16,9 +22,14 @@ barba.init({
         document.body.style.overflow="hidden"
         await pageOut(data.current.container);
         data.current.container.remove();
-        document.body.style.overflow="visible"
+        // document.body.style.overflow="visible"
 
       },
+      async enter(data){
+        await pageIn(data.next.container)
+        document.body.style.overflow="visible"
+
+      }
     },
   ],
 });

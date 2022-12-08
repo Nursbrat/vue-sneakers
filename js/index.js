@@ -2,12 +2,9 @@ import overlayFunc from "./overlay.js";
 
 const cartItem = document.querySelector(".cotalog__content");
 const searchInput = document.querySelector(".cotalog__search");
+import{cart,deleteCartItem,renderCartItems} from "./renderCartItems.js"
+import {renderSkeleton} from "./renderSkeletonItems.js";
 
-export let cart = [];
-import renderCartItems from "./renderCartItems.js";
-export const filterCart = (itemId) => {
-  cart = cart.filter((item) => +item.id !== +itemId);
-};
 
 const animCards = () => {
   gsap.from(".cardItem", {
@@ -21,7 +18,7 @@ const animCards = () => {
 
 const response = async () => {
   const result = await fetch(
-    "https://632f0797b7314fc02f4e7e68.mockapi.io/goods"
+    "http://localhost:3000/goods"
   );
   const data = await result.json();
 
@@ -42,7 +39,7 @@ const response = async () => {
         const itemId =
           cartDelete.parentElement.parentElement.parentElement.dataset.id;
         cart = cart.filter((item) => +item.id !== +itemId);
-        filterCart(itemId);
+      deleteCartItem(itemId);
         renderCartItems();
       });
     });
@@ -62,6 +59,8 @@ const response = async () => {
     });
   };
   const renderGoods = (func) => {
+    renderSkeleton()
+   setTimeout(()=>{
     cartItem.innerHTML = "";
     func.forEach((element) => {
       cartItem.innerHTML += `
@@ -90,11 +89,14 @@ const response = async () => {
                           </div>
           `;
     });
+   },1000)
     handleAdd();
     animCards();
+
   };
 
   renderGoods(data);
+  renderCartItems()
 
   searchInput.addEventListener("keypress", () => {
     cartItem.innerHTML = "";
